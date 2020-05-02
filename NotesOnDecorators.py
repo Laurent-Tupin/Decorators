@@ -58,9 +58,10 @@ def dec_checkUserIsLogged(input_fct):
             # Before Function Execution...
             launchFunction = input_fct(*l_paramInput, **d_paramInput)
             # After Function Execution...
-            return launchFunction
         else:   
             print('ERROR: you need to be connected to access to the function: {}'.format(input_fct))
+            launchFunction = None
+        return launchFunction
     return wrap_modifiedFunction
 
 
@@ -75,20 +76,21 @@ class c_ConnexionDatabase():
     def __init__(self, str_server):
         self._server = str_server
     
-    # Decorators @property and @_get_server.setter used in place of the last row : "_server = property(get_server, set_server)"
+    # Decorators @property and @get_server.setter used in place of the last row : 
+    #   "server = property(get_server, set_server)"
     @property
-    def _get_server(self):
+    def get_server(self):
         return self._server
-    @_get_server.setter
-    def _set_server(self, str_server):
+    @get_server.setter
+    def set_server(self, str_server):
         self._server = str_server
         
 def TryDbConnexion():    
     db1 = c_ConnexionDatabase('Connex1')
     db2 = c_ConnexionDatabase('Connex2')
-    # Why _Server is accessible while it should pass by _get_server to be served ?????????????????????
+    # Why _Server is accessible while it should pass by get_server to be served ?????????????????????
     #db1._server = 'abc'
-    print('db1 = {} || db2 = {}'.format(db1._server, db2._server))
+    print('db1 = {} || db2 = {}'.format(db1.get_server, db2.get_server))
     
     
 #Decore une fonction - Performance Function
