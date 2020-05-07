@@ -74,16 +74,16 @@ def dec_checkUserIsLogged(input_fct):
 @dec_singletonsCLass
 class c_ConnexionDatabase():
     def __init__(self, str_server):
-        self._server = str_server
+        self.__server = str_server
     
     # Decorators @property and @get_server.setter used in place of the last row : 
     #   "server = property(get_server, set_server)"
     @property
-    def get_server(self):
-        return self._server
-    @get_server.setter
-    def set_server(self, str_server):
-        self._server = str_server
+    def server(self):
+        return self.__server
+    @server.setter
+    def server(self, str_server):
+        self.__server = str_server
         
 def TryDbConnexion():    
     db1 = c_ConnexionDatabase('Connex1')
