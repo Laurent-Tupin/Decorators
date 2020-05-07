@@ -26,26 +26,30 @@ def dec_singletonsCLass(input_classe):
     return wrap_getInstances
 
 #------------Performance in a function------------
-def dec_getTimePerf(input_fct):
+def dec_getTimePerf(int_secondesLimitDisplay = 1):
     '''
     Time Performance Decorators on a function
     You can calculate and compare Performance on any function just by decorating it
     '''    
-    def wrap_modifiedFunction(*l_paramInput, **d_paramInput):
-        # Before Function Execution...
-        time_Debut = time.time()
-        # Function execution 
-        #   If you want to make stuff after execution of the function, you need to call function before returning it    
-        launchFunction = input_fct(*l_paramInput, **d_paramInput)
-        # After Function Execution...
-        time_Fin = time.time()
-        time_duree = time_Fin - time_Debut
-        sec_duree = int(time_duree)
-        milli_duree = (time_duree - sec_duree) * 1000
-        print('Execution time for the function: {} = {} sec, {} milliSec'.format(input_fct, sec_duree, milli_duree))
-        # Return the Function at the end
-        return launchFunction
-    return wrap_modifiedFunction
+    def dec_decoratorinside(input_fct):
+        def wrap_modifiedFunction(*l_paramInput, **d_paramInput):
+            # Before Function Execution...
+            time_Debut = time.time()
+            # Function execution 
+            #   If you want to make stuff after execution of the function, you need to call function before returning it    
+            launchFunction = input_fct(*l_paramInput, **d_paramInput)
+            # After Function Execution...
+            time_Fin = time.time()
+            time_duree = time_Fin - time_Debut
+            sec_duree = int(time_duree)
+            milli_duree = int((time_duree - sec_duree) * 1000)
+            if sec_duree >= int_secondesLimitDisplay:
+                print(' * Execution time: {} = {} sec, {} milliSec'.format(input_fct, sec_duree, milli_duree))
+            # Return the Function at the end
+            return launchFunction
+        return wrap_modifiedFunction
+    return dec_decoratorinside
+
 
 #------------Execute function if logged in------------
 def dec_checkUserIsLogged(input_fct):
