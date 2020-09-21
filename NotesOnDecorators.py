@@ -69,6 +69,22 @@ def dec_checkUserIsLogged(input_fct):
     return wrap_modifiedFunction
 
 
+#------------Coroutine Decorators------------
+def dec_coroutine(input_fct):
+    def wrap_modifiedFunction(*l_paramInput, **d_paramInput):
+        cr = input_fct(*l_paramInput, **d_paramInput)
+        cr.next()
+        return cr
+    return wrap_modifiedFunction
+
+
+
+
+
+
+
+
+
 
 #------------------------------------------------------------------------------
 # Using Decorators
@@ -131,8 +147,8 @@ def AccessProfile():
 #fInt_SumFor(10000000)
 #fInt_SumWhile(10000000)
 
-bl_userIsLoged = False
-AccessProfile()
+#bl_userIsLoged = False
+#AccessProfile()
 
 
 
